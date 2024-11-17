@@ -21,7 +21,7 @@ function PatientCard({ patient, setOverallStatus, setApproved, setMedication, se
     <Card
       onClick={() => {
         setRecordId(patient?.latestRecord?._id ?? "");
-        if (toggleModal) {
+        if (toggleModal && lastRecordStatus) {
           toggleModal();
         }
         if (setApproved) {

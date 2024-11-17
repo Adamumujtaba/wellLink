@@ -185,7 +185,7 @@ function SymptomsForm({ handlePostSymptoms, isLoading, isSuccess }: Props) {
             </div>
           </form>
 
-          <p style={{ display: "flex", gap: 5, background: "#EFEBDBD4", padding: 4 }}>
+          <p style={{ display: "flex", gap: 2, background: "#EFEBDBD4", padding: 4, fontSize: "small" }}>
             <Warning2 color="#E5B804" /> The AI consultation provided by WellLink is a preliminary assessment.
           </p>
         </>

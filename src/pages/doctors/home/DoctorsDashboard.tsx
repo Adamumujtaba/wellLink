@@ -45,7 +45,7 @@ function DoctorsDashboard() {
 
   return (
     <div>
-      <h4 style={{ marginBottom: "1rem" }}>Welcome Doctor {capitalizeFirstLetterOFEachWord(user.fullname)} </h4>
+      <h4 style={{ marginBottom: "1rem" }}>Welcome {capitalizeFirstLetterOFEachWord(user.fullname)} </h4>
 
       {isLoading ? (
         <Skeleton count={1} baseColor="#cdd6de33" highlightColor="#5a626833" width="500px" height="120px" />
@@ -67,29 +67,37 @@ function DoctorsDashboard() {
         </Select>
       </FilterDiv>
       <Grid>
-        {isLoading
-          ? [1, 2, 3, 4].map((el) => (
-              <Skeleton
-                key={el}
-                count={1}
-                baseColor="#cdd6de33"
-                highlightColor="#5a626833"
-                width="500px"
-                height="120px"
+        {isLoading ? (
+          [1, 2, 3, 4].map((el) => (
+            <Skeleton
+              key={el}
+              count={1}
+              baseColor="#cdd6de33"
+              highlightColor="#5a626833"
+              width="500px"
+              height="120px"
+            />
+          ))
+        ) : data?.data.length ? (
+          data?.data?.map((patient) => {
+            return (
+              <PatientCard
+                toggleModal={toggleModal}
+                setRecordId={setRecordId}
+                patient={patient}
+                setApproved={setApproved}
+                setMedication={setMedication}
+                setOverallStatus={setOverallStatus}
               />
-            ))
-          : data?.data?.map((patient) => {
-              return (
-                <PatientCard
-                  toggleModal={toggleModal}
-                  setRecordId={setRecordId}
-                  patient={patient}
-                  setApproved={setApproved}
-                  setMedication={setMedication}
-                  setOverallStatus={setOverallStatus}
-                />
-              );
-            })}
+            );
+          })
+        ) : (
+          <>
+            <div style={{ textAlign: "center", padding: "50px", color: "#555" }}>
+              <h2>No data available</h2>
+            </div>
+          </>
+        )}
       </Grid>
       <div>
         <ReviewModal

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Button from "./components/Button/button";
 import { logout, useUserSlice } from "./redux/auth/authSlice";
 import { useDispatch } from "react-redux";
+import Logo from "@/assets/react.svg";
 
 export const Layout = () => {
   const { user, token } = useUserSlice();
@@ -10,7 +11,10 @@ export const Layout = () => {
   return (
     <>
       <Nav>
-        <h4>WellLink</h4>
+        <h4>
+          <img width={"25px"} src={Logo} />
+          <span className="title">WellLink</span>
+        </h4>
         {user && token && (
           <StyledButton
             onClick={() => {
@@ -43,9 +47,19 @@ export const Nav = styled.main`
   p {
     text-decoration: underline;
   }
-  h4::first-letter {
-    color: #3e98c7;
-    font-size: 2em;
+  h4 {
+    background: #dde1e7;
+    box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3);
+
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 110px;
+    border-radius: 5px;
+    .title::first-letter {
+      color: #3e98c7 !important;
+      font-size: 1.5em !important;
+    }
   }
 `;
 

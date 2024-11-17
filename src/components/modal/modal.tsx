@@ -84,10 +84,15 @@ const ModalContent = styled.div<ModalContentProps>`
   flex-direction: column;
   position: relative;
   max-width: 500px;
-  width: ${({ width }) => width || "80%"};
+  width: ${({ width }) => width || "95%"};
 
   .modal_body {
-    /* background: red; */
-    width: 89%;
+    width: 100%;
+  }
+  @media screen and (max-width: 760px) {
+    .modal_body {
+      /* background: red; */
+      width: 95%;
+    }
   }
 `;
