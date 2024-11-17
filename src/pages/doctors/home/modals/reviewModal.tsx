@@ -36,7 +36,6 @@ function ReviewModal({
   setMedication,
   patient,
 }: modalProps) {
-  console.log(patient);
   return (
     <Modal
       onClose={toggleModal}
