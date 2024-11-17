@@ -17,7 +17,7 @@ interface InputProps {
 
 function Input({ label, name, options, control, isMultiple, type, error, ...rest }: InputProps) {
   return (
-    <div style={{ marginBottom: "1rem" }}>
+    <Container>
       <>
         {label && <label htmlFor={name}>{label}</label>}
         {type == "select" && (
@@ -54,22 +54,32 @@ function Input({ label, name, options, control, isMultiple, type, error, ...rest
         )}
         {error && <span style={{ color: "red", fontSize: "12px" }}>{error?.message}</span>}
       </>
-    </div>
+    </Container>
   );
 }
 
 export default Input;
 
+const Container = styled.div`
+  margin-bottom: 1rem;
+  border: none;
+`;
+
 export const InputStyle = styled.input`
   background: #dde1e7;
-  box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45), inset 5px 5px 9px rgba(94, 104, 121, 0.3);
+  /* box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45), inset 5px 5px 9px rgba(94, 104, 121, 0.3); */
   border-radius: 3px !important;
   border: none;
   padding: 10px 20px;
   height: 40px;
   color: #000;
   outline: none;
+  border: none;
   font-size: medium;
+  &:focus {
+    background: none;
+    border: none;
+  }
 `;
 
 export const SelectInput = styled(Select)`

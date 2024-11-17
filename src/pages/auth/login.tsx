@@ -56,7 +56,19 @@ function Login() {
   };
 
   return (
-    <div style={{ maxWidth: "400px", width: "90% ", margin: "10rem auto" }}>
+    <div
+      style={{
+        maxWidth: "400px",
+        background: "#dde1e7",
+        boxShadow: "-5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3)",
+        borderRadius: "3px!important",
+        border: "none",
+        padding: " 30px",
+        color: "#000",
+        width: "90% ",
+        margin: "10rem auto",
+      }}
+    >
       <h2>Login page</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input

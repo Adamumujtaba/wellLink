@@ -2,9 +2,10 @@ import { BaseQueryFn, FetchArgs, FetchBaseQueryError, createApi, fetchBaseQuery 
 import { cacher } from "../api/rtkQueryCacheUtils";
 import { RootState } from "../store";
 import { logout } from "../auth/authSlice";
+import { BASE_URL } from "@/utils/config";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:3000/",
+  baseUrl: BASE_URL,
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState)?.auth?.token;
     if (token) {
