@@ -74,7 +74,6 @@ const ModalHeader = styled.div`
 `;
 const ModalContent = styled.div<ModalContentProps>`
   background-color: #fff;
-  padding: 20px 10px;
   box-sizing: border-box;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -85,13 +84,15 @@ const ModalContent = styled.div<ModalContentProps>`
   position: relative;
   max-width: 500px;
   width: ${({ width }) => width || "95%"};
+  padding: 20px 40px;
 
   .modal_body {
     width: 100%;
   }
   @media screen and (max-width: 760px) {
+    padding: 15px 10px;
+
     .modal_body {
-      /* background: red; */
       width: 95%;
     }
   }

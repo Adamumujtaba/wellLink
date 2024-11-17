@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "./components/Button/button";
 import { logout, useUserSlice } from "./redux/auth/authSlice";
@@ -8,10 +8,14 @@ import Logo from "@/assets/react.svg";
 export const Layout = () => {
   const { user, token } = useUserSlice();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const routeBackHome = () => {
+    navigate("/");
+  };
   return (
     <>
       <Nav>
-        <h4>
+        <h4 onClick={routeBackHome}>
           <img width={"25px"} src={Logo} />
           <span className="title">WellLink</span>
         </h4>

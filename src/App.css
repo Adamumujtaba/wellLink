@@ -1,4 +1,9 @@
 * {
   padding: 0;
   margin: 0;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  /* font-weight: <weight>; */
+  font-style: normal;
 }

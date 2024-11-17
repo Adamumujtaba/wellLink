@@ -4,9 +4,10 @@ import { Layout } from "./layout";
 import Landing from "./pages/patient/patientLandingPage";
 import Login from "./pages/auth/login";
 import Register from "./pages/auth/register";
-import PrivateRoute from "./components/route-helper/private-route";
 import { DoctorsLayout } from "./doctorsLayout";
 import DoctorsDashboard from "./pages/doctors/home/DoctorsDashboard";
+import NotFound from "./NotFound";
+import { RoleBasedRoute } from "./components/route-helper/RoleBasedRoute";
 
 function App() {
   return (
@@ -19,23 +20,26 @@ function App() {
           <Route
             index
             element={
-              <PrivateRoute>
+              <RoleBasedRoute allowedRoles={["patient"]}>
                 <Landing />
-              </PrivateRoute>
+              </RoleBasedRoute>
             }
           />
         </Route>
 
+        {/* Doctor routes */}
         <Route path="/dashboard" element={<DoctorsLayout />}>
           <Route
             index
             element={
-              <PrivateRoute>
+              <RoleBasedRoute allowedRoles={["doctor"]}>
                 <DoctorsDashboard />
-              </PrivateRoute>
+              </RoleBasedRoute>
             }
           />
         </Route>
+
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </>
   );
