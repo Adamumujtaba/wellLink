@@ -63,9 +63,9 @@ function Login() {
         boxShadow: "-5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3)",
         borderRadius: "3px!important",
         border: "none",
-        padding: " 30px",
+        padding: " 25px",
         color: "#000",
-        width: "90% ",
+        width: "80%",
         margin: "10rem auto",
       }}
     >

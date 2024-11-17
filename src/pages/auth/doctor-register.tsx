@@ -3,6 +3,7 @@ import Button from "@/components/Button/button";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import { AuthWarpper } from "./auth-style";
 
 interface UserData {
   email: string;
@@ -41,18 +42,7 @@ function DoctorRegisterForm({ onSubmit, isLoading }: Props) {
   } = useForm<UserData>({ defaultValues, resolver: yupResolver(schema) });
   return (
     <div>
-      <div
-        style={{
-          maxWidth: "400px",
-          background: "#dde1e7",
-          boxShadow: "-5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3)",
-          borderRadius: "3px!important",
-          border: "none",
-          padding: " 30px",
-          color: "#000",
-          width: "90% ",
-        }}
-      >
+      <AuthWarpper>
         <h2>Doctor</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
@@ -84,7 +74,7 @@ function DoctorRegisterForm({ onSubmit, isLoading }: Props) {
           />
           <Button title={isLoading ? "Loading..." : "Create"} />
         </form>
-      </div>
+      </AuthWarpper>
     </div>
   );
 }

@@ -12,6 +12,7 @@ function Button({
   title?: string;
   onClick?: () => void;
   style?: React.CSSProperties;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   rest?: any;
   disabled?: boolean;
 }) {

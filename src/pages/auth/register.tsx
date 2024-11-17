@@ -23,7 +23,15 @@ function Register() {
   };
 
   return (
-    <div style={{ maxWidth: "400px", width: "90% ", margin: "10rem auto" }}>
+    <div
+      style={{
+        maxWidth: "400px",
+        boxSizing: "border-box",
+        width: "80%",
+        margin: "10rem auto",
+        // padding: "1rem",
+      }}
+    >
       <TabContainer>
         <TabButton active={user === "patient"} onClick={() => handleTabSwitch("patient")}>
           Patient
@@ -38,7 +46,9 @@ function Register() {
       <TabPanel active={user === "doctor"}>
         <DoctorRegisterForm onSubmit={onSubmit} isLoading={isLoading} />
       </TabPanel>
-      Already have an account <Link to="/login">Login</Link>
+      <p style={{ margin: ".7rem 0px" }}>
+        Already have an account <Link to="/login">Login</Link>
+      </p>
     </div>
   );
 }
