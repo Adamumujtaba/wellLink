@@ -10,7 +10,6 @@ import loadingAnimation from "../../assets/loading.json";
 import { TabButton, TabContainer, TabPanel } from "@/components/tab";
 import Dashboard from "./tabs/dashboard";
 import History from "./tabs/history";
-import EmptyState from "./components/emptyState";
 import Skeleton from "react-loading-skeleton";
 import { capitalizeFirstLetterOFEachWord } from "@/utils/utils";
 
@@ -29,23 +28,21 @@ function Landing() {
   return (
     <div>
       <h2>Welcome {capitalizeFirstLetterOFEachWord(user.fullname)}</h2>
-
+      <CallToActionButton onClick={toggleFormModal}>Check-in </CallToActionButton>
+      <TabContainer>
+        <TabButton active={activeTab === "dashboard"} onClick={() => handleTabSwitch("dashboard")}>
+          Dashboard
+        </TabButton>
+        <TabButton active={activeTab === "history"} onClick={() => handleTabSwitch("history")}>
+          History
+        </TabButton>
+      </TabContainer>
       {isLoadingRecord || isLoading ? (
         <div>
           <Skeleton count={1} width="100%" height="70vh" />
         </div>
       ) : data?.data.length ? (
         <>
-          <CallToActionButton onClick={toggleFormModal}>Check-in </CallToActionButton>
-          <TabContainer>
-            <TabButton active={activeTab === "dashboard"} onClick={() => handleTabSwitch("dashboard")}>
-              Dashboard
-            </TabButton>
-            <TabButton active={activeTab === "history"} onClick={() => handleTabSwitch("history")}>
-              History
-            </TabButton>
-          </TabContainer>
-
           <TabPanel active={activeTab === "dashboard"}>
             <Dashboard />
           </TabPanel>
@@ -63,13 +60,29 @@ function Landing() {
           </TabPanel>
         </>
       ) : (
-        <>
-          <EmptyState
-            button={
-              data?.data.length ? <></> : <CallToActionButton onClick={toggleFormModal}>Check-in </CallToActionButton>
-            }
-          />
-        </>
+        <div
+          style={{
+            maxWidth: "500px",
+            width: "90%",
+            margin: "3rem auto",
+            padding: "2rem",
+            background: "#dde1e7",
+            borderRadius: "5px",
+            boxShadow: " rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px ",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <p>
+            Welcome to our health assistant app! This app helps you track your symptoms and receive AI-generated health
+            insights, including possible medication suggestions. Any suggested medication will be reviewed by our
+            doctors, who can update and approve it to ensure safety. Please wait for a doctor’s approval before
+            following any medication advice.
+            <br />
+            <br />
+          </p>
+        </div>
       )}
 
       <Modal
@@ -94,13 +107,13 @@ const CallToActionButton = styled.button`
   all: unset;
   padding: 10px;
   border-radius: 4px;
-  /* background: #dde1e7; */
-  box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45), inset 5px 5px 9px rgba(94, 104, 121, 0.3);
-  background: #3e98c7;
-  color: #fff;
+  background: #dde1e7;
+  box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3);
+  font-weight: 800;
+  color: #3e98c7;
   float: right;
   margin-bottom: 1rem;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px; */
   &:hover {
     border: none;
     box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45), inset 5px 5px 9px rgba(94, 104, 121, 0.3);

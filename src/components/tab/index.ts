@@ -14,6 +14,8 @@ export const TabContainer = styled.div`
 export const TabButton = styled.div<{ active: boolean }>`
   width: 50%;
   height: 30px;
+  /* background: #dde1e7; */
+  box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3);
   background: ${(props) => (props.active ? "#3e98c7" : "#dde1e7")};
   border-radius: 4px;
   color: ${(props) => (props.active ? "#fff" : "#4F5D75")};
@@ -26,7 +28,7 @@ export const TabButton = styled.div<{ active: boolean }>`
   align-items: center;
   justify-content: center;
   text-align: center;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px; */
 `;
 
 export const TabPanel = styled.div<{ active: boolean }>`

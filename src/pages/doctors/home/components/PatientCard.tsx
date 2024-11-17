@@ -98,13 +98,13 @@ const Card = styled.div`
   align-items: center;
   /* margin: 10px; */
 
+  background: #dde1e7;
   box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3);
   &:hover {
     border: none;
     box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45), inset 5px 5px 9px rgba(94, 104, 121, 0.3);
   }
 
-  background: #dde1e7;
   /* box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px; */
   gap: 10px;
   padding: 10px 10px;

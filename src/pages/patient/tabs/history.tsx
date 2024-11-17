@@ -56,7 +56,13 @@ function History({ data }: HistoryProps) {
               <Button
                 onClick={() => deleteRecord({ id: record._id })}
                 title={isDeleting ? "Deleting..." : "Delete"}
-                style={{ width: "100px", color: "red" }}
+                style={{
+                  width: "100px",
+                  background: "#dde1e7",
+                  boxShadow: " -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3)",
+
+                  color: "red",
+                }}
               />
               <Button
                 onClick={() => {
@@ -65,7 +71,11 @@ function History({ data }: HistoryProps) {
                   setRecordId(record._id);
                 }}
                 title="Update"
-                style={{ width: "100px" }}
+                style={{
+                  width: "100px",
+                  background: "#dde1e7",
+                  boxShadow: " -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3)",
+                }}
               />
             </div>
           </CardHistory>
@@ -92,15 +102,15 @@ const Grid = styled.div`
   gap: 1.5rem;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   width: 100%;
-  padding: 1rem;
+  padding: 2rem 0px;
   margin: 0 auto;
 `;
 interface CardProps {
   status: "Caution" | "Stable" | "High Risk";
 }
 const CardHistory = styled.div<CardProps>`
-  /* background: red; */
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  background: #dde1e7;
+  box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3);
   width: 300px;
   padding: 10px;
   margin: 0px;
@@ -112,18 +122,18 @@ const CardHistory = styled.div<CardProps>`
       case "Caution":
         return `
             // background-color: #FFF5D9;
-            border:3px solid #856404;
-            background: #eeee;
-            // color: #856404;
+            // border:3px solid #856404;
+            // background: #eeee;
+            color: #856404;
           `;
       case "Stable":
         return `
-            background-color: #D1E7DD;
+            // background-color: #D1E7DD;
             color: #0F5132;
           `;
       case "High Risk":
         return `
-            background-color: #F8D7DA;
+            // background-color: #F8D7DA;
             color: #842029;
             
           `;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 // import Lottie from "lottie-react";
-import { UserSquare } from "iconsax-react";
+import { Danger, HeartTick, UserSquare, Warning2 } from "iconsax-react";
 import { thousandFormatter } from "@/utils/utils";
 
 interface cardProps {
@@ -17,6 +17,7 @@ function StatsCard({ title, total, type }: cardProps) {
             fontWeight: "bold",
             fontSize: "40px",
             transition: "color 0.3s ease-in-out",
+            fontFamily: "monospace",
           }}
         >
           {thousandFormatter(total ?? 0)}
@@ -26,14 +27,16 @@ function StatsCard({ title, total, type }: cardProps) {
             bottom: 20,
             fontWeight: "bold",
             fontSize: "24px",
-            color: "#fff",
           }}
         >
           {title}
         </p>
       </div>
       <div className="icon">
-        <UserSquare size={35} />
+        {type === "risk" && <Danger size={34} />}
+        {type === "total" && <UserSquare size={34} />}
+        {type === "stable" && <HeartTick size={34} />}
+        {type === "caution" && <Warning2 size={34} />}
       </div>
     </Card>
   );
@@ -45,10 +48,19 @@ interface CardProps {
   status: string;
 }
 const Card = styled.div<CardProps>`
-  position: relative;
+  /* position: relative; */
   max-width: 150px;
+  width: 100%;
   height: 150px;
-  background: ${({ status }) =>
+  background: #dde1e7;
+  box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: ${({ status }) =>
     status === "total"
       ? "#000"
       : status === "paid"
@@ -58,13 +70,12 @@ const Card = styled.div<CardProps>`
       : status === "risk"
       ? "#FF3D00"
       : "#125f3a"};
-  color: #fff;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 8px;
   .icon {
-    /* background: red; */
+  }
+
+  @media (max-width: 600px) {
+    max-width: 95%;
+    margin: 0px;
+    padding: 5px;
   }
 `;

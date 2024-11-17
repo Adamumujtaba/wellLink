@@ -1,4 +1,3 @@
-import { TypeAnimation } from "react-type-animation";
 import StatsCard from "../components/dashboardCard";
 import styled from "styled-components";
 import { useRecordsStatsQuery } from "../SymptomLogginApi";
@@ -32,18 +31,6 @@ function Dashboard() {
           </>
         )}
       </Grid>
-      <TypeAnimation
-        sequence={[
-          "Welcome to WellLink! Track your symptoms, get personalized health insights, and receive recommendations on how to manage your wellness.",
-          1000, // wait 1s before changing to the next step
-          "If needed, our AI will guide you on when to consult a doctor.",
-          1000,
-        ]}
-        wrapper="span"
-        speed={50}
-        style={{ display: "inline-block" }}
-        repeat={Infinity}
-      />
     </div>
   );
 }
@@ -52,9 +39,16 @@ export default Dashboard;
 
 const Grid = styled.div`
   display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 100px), 1fr));
   width: 100%;
-  padding: 1rem;
-  margin: 0 auto;
+  margin: 2rem auto;
+  box-sizing: border-box;
+
+  @media (max-width: 657px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: 321px) {
+    grid-template-columns: 1fr;
+  }
 `;
