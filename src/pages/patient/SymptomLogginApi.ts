@@ -59,10 +59,10 @@ const symptomApi = api.injectEndpoints({
       },
     }),
     doctorsApproval: builder.mutation<any, DoctorsApprovalRequest>({
-      query: ({ doctors_approval, recordId, overall_status }) => ({
+      query: ({ doctors_approval, medication, recordId, overall_status }) => ({
         url: `/users/records/${recordId}/doctor-approval`,
         method: "PUT",
-        body: { doctors_approval, overall_status },
+        body: { doctors_approval, overall_status, prescribe_medication: medication },
       }),
       invalidatesTags: ["Records"],
       async onQueryStarted(_arg, { queryFulfilled }) {
@@ -141,6 +141,7 @@ export interface DoctorsApprovalRequest {
   doctors_approval: boolean;
   overall_status?: OverallStatus;
   recordId: string;
+  medication?: string;
 }
 
 // Basic type for the Patient data

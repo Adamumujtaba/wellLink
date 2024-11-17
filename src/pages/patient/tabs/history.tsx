@@ -57,7 +57,7 @@ function History({ data }: HistoryProps) {
               <StatusCard status={record.response.doctor_approved} />
             </div>
             <p>Symptoms: {record.response.symptoms}</p>
-            <p>Prescribed Medication: {record.response.prescribe_medication[0]}</p>
+            <p>Prescribed Medication: {record.response.prescribe_medication}</p>
             <p>Status: {record.response.overall_status}</p>
             <p>Date: {formatDateTime(record.updatedAt)}</p>
             <Button onClick={() => deleteRecord({ id: record._id })} title="D" style={{ width: "30px" }} />

@@ -63,7 +63,7 @@ function PatientRegisterForm({ onSubmit, isLoading }: Props) {
             {...register("password")}
             control={control}
             label={"Password"}
-            placeholder="Enter your password address"
+            placeholder="Enter your password "
             error={errors.password}
           />
           <Button title={isLoading ? "Loading..." : "Create"} />

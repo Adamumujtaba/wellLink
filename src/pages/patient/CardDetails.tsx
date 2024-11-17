@@ -15,7 +15,7 @@ function CardDetails() {
         <hr />
         <div className="main">
           <p className="title">Medication</p>
-          {prescribe_medication[0]}
+          {prescribe_medication}
         </div>
         <hr />
         <div className="main">

@@ -18,6 +18,7 @@ interface modalProps {
   approved: boolean;
   medication: string;
   overallStatus: OverallStatus;
+  setMedication: (value: string) => void;
 }
 
 function ReviewModal({
@@ -31,6 +32,7 @@ function ReviewModal({
   setOverallStatus,
   medication,
   isApproving,
+  setMedication,
 }: modalProps) {
   return (
     <Modal
@@ -40,7 +42,7 @@ function ReviewModal({
       style={{ background: "#dde1e7" }}
     >
       <div>
-        <TextArea value={medication} placeholder="Medication" />
+        <TextArea onChange={(e) => setMedication(e.target.value)} value={medication} placeholder="Medication" />
         <div>
           <Select
             style={{ width: "100%" }}
@@ -92,7 +94,12 @@ function ReviewModal({
       <StyledButton
         title={isApproving ? "Updating..." : "Update"}
         onClick={() => {
-          doctorsApproval({ doctors_approval: approved, recordId, overall_status: overallStatus });
+          doctorsApproval({
+            doctors_approval: approved,
+            recordId,
+            overall_status: overallStatus,
+            medication: medication,
+          });
         }}
       />
     </Modal>

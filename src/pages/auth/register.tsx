@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { TabButton, TabContainer, TabPanel } from "@/components/tab";
 import PatientRegisterForm from "./patient-register";
 import DoctorRegisterForm from "./doctor-register";
@@ -7,25 +7,16 @@ import { useRegisterMutation } from "./auth-api";
 import { UserData } from "./type";
 
 function Register() {
-  const [handleRegister, { isLoading, data, isSuccess }] = useRegisterMutation();
+  const [handleRegister, { isLoading, isSuccess }] = useRegisterMutation();
   const [user, setUser] = useState("patient");
   const handleTabSwitch = (val: string) => setUser(val);
   const navigate = useNavigate();
 
-  const userRole = useMemo(() => data?.user?.role, [data?.user?.role]);
-
-  const destinationPath = useMemo(() => {
-    if (isSuccess && userRole === "doctor") {
-      return "/doctor";
-    }
-    return "/";
-  }, [isSuccess, userRole]);
-
   useEffect(() => {
     if (isSuccess) {
-      navigate(destinationPath);
+      navigate("/login");
     }
-  }, [isSuccess, navigate, destinationPath]);
+  }, [isSuccess, navigate]);
 
   const onSubmit = (data: UserData) => {
     handleRegister(data);

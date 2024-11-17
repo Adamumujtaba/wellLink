@@ -2,6 +2,7 @@
 import { setCredentials } from "../../redux/auth/authSlice";
 import api from "../../redux/api/base";
 import { Errorhandler } from "@/utils/ErrorHandler";
+import { toast } from "react-toastify";
 
 const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -40,6 +41,9 @@ const authApi = api.injectEndpoints({
               user: data.data.data.user,
             })
           );
+          toast.success("Registration successful", {
+            position: "top-right",
+          });
         }).catch((err) => {
           // console.log("ErrorHH>>", err.error.data.errors.message);
           Errorhandler(err.error.data);

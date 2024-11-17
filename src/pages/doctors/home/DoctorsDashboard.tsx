@@ -96,6 +96,7 @@ function DoctorsDashboard() {
           approved={approved}
           recordId={recordId}
           medication={medication}
+          setMedication={setMedication}
           toggleModal={toggleModal}
           isModalOpen={isModalOpen}
           overallStatus={overallStatus}

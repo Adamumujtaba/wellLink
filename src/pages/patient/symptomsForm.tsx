@@ -11,9 +11,10 @@ import loadingAnimation from "../../assets/loading.json";
 import { Warning2 } from "iconsax-react";
 
 interface UserData {
+  userId?: string;
   age: string;
-  smoke: string;
-  user_gender: string;
+  smoker: string;
+  gender: string;
   symptoms: string;
   known_allergies: string;
   chronic_conditions: string;
@@ -22,8 +23,8 @@ interface UserData {
 const defaultValues = {
   age: "",
   known_allergies: "",
-  smoke: "",
-  user_gender: "",
+  smoker: "",
+  gender: "",
   symptoms: "",
   chronic_conditions: "",
   // diet: "",
@@ -31,15 +32,15 @@ const defaultValues = {
 
 const schema = yup.object().shape({
   age: yup.string().required("Age is required"),
-  user_gender: yup.string().required("Gender is required"),
+  gender: yup.string().required("Gender is required"),
   symptoms: yup.string().required("Physical activity is required"),
   known_allergies: yup.string().required("Known allergies are required"),
-  smoke: yup.string().required("Smoking status is required"),
+  smoker: yup.string().required("Smoking status is required"),
   chronic_conditions: yup.string().required("Chronic conditions are required"),
 });
 
 interface Props {
-  handlePostSymptoms: (data: unknown) => void;
+  handlePostSymptoms: (data: UserData) => void;
   isLoading: boolean;
   isSuccess: boolean;
 }
@@ -60,10 +61,10 @@ function SymptomsForm({ handlePostSymptoms, isLoading, isSuccess }: Props) {
     const dataToSubmit = {
       userId: user.id,
       age: data.age,
-      gender: data.user_gender,
+      gender: data.gender,
       known_allergies: data.known_allergies,
       chronic_conditions: data.chronic_conditions,
-      smoker: data.smoke,
+      smoker: data.smoker,
       symptoms: data.symptoms,
     };
     console.log(dataToSubmit);
@@ -75,8 +76,8 @@ function SymptomsForm({ handlePostSymptoms, isLoading, isSuccess }: Props) {
     if (isSuccess) {
       reset();
     }
-  }, [isSuccess]);
-  console.log(errors);
+  }, [isSuccess, reset]);
+
   return (
     <div>
       {isLoading ? (
@@ -160,21 +161,21 @@ function SymptomsForm({ handlePostSymptoms, isLoading, isSuccess }: Props) {
               <RadioGroup>
                 <RadioLabel>Gender: </RadioLabel>
                 <RadioOption>
-                  <input type="radio" id="user_gender-male" {...register("user_gender")} value="male" />
-                  <label htmlFor="user_gender-male">Male</label>
+                  <input type="radio" id="gender-male" {...register("gender")} value="male" />
+                  <label htmlFor="gender-male">Male</label>
 
-                  <input type="radio" id="user_gender-female" {...register("user_gender")} value="female" />
-                  <label htmlFor="user_gender-female">Female</label>
+                  <input type="radio" id="female" {...register("gender")} value="female" />
+                  <label htmlFor="female">Female </label>
                 </RadioOption>
               </RadioGroup>
 
               <RadioGroup>
                 <RadioLabel>Smoke: </RadioLabel>
                 <RadioOption>
-                  <input type="radio" id="smoke-yes" {...register("smoke")} value="Yes" />
+                  <input type="radio" id="smoke-yes" {...register("smoker")} value="Yes" />
                   <label htmlFor="smoke-yes">Yes</label>
 
-                  <input type="radio" id="smoke-no" {...register("smoke")} value="No" />
+                  <input type="radio" id="smoke-no" {...register("smoker")} value="No" />
                   <label htmlFor="smoke-no">No</label>
                 </RadioOption>
               </RadioGroup>
