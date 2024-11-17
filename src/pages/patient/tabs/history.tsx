@@ -37,15 +37,7 @@ function History({ data }: HistoryProps) {
     <div>
       <Grid>
         {data?.data?.map((record, index) => (
-          <CardHistory
-            onClick={() => {
-              toggleModal();
-              setFeelings(record.response.overall_status);
-              setRecordId(record._id);
-            }}
-            status={record.response.overall_status}
-            key={record._id}
-          >
+          <CardHistory status={record.response.overall_status} key={record._id}>
             <div
               style={{
                 display: "flex",
@@ -60,7 +52,22 @@ function History({ data }: HistoryProps) {
             <p>Prescribed Medication: {record.response.prescribe_medication}</p>
             <p>Status: {record.response.overall_status}</p>
             <p>Date: {formatDateTime(record.updatedAt)}</p>
-            <Button onClick={() => deleteRecord({ id: record._id })} title="D" style={{ width: "30px" }} />
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Button
+                onClick={() => deleteRecord({ id: record._id })}
+                title={isDeleting ? "Deleting..." : "Delete"}
+                style={{ width: "100px", color: "red" }}
+              />
+              <Button
+                onClick={() => {
+                  toggleModal();
+                  setFeelings(record.response.overall_status);
+                  setRecordId(record._id);
+                }}
+                title="Update"
+                style={{ width: "100px" }}
+              />
+            </div>
           </CardHistory>
         ))}
       </Grid>
