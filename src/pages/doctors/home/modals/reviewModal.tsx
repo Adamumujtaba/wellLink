@@ -1,11 +1,12 @@
 import Button from "@/components/Button/button";
 import Modal from "@/components/modal/modal";
-import { DoctorsApprovalRequest } from "@/pages/patient/SymptomLogginApi";
+import { DoctorsApprovalRequest, Patient } from "@/pages/patient/SymptomLogginApi";
 import { OverallStatus } from "@/redux/symptoms/symptomSlice";
 import styled from "styled-components";
 import { Select } from "../DoctorsDashboard";
 
 interface modalProps {
+  patient: Patient | null;
   toggleModal: () => void;
   isModalOpen: boolean;
   recordId: string;
@@ -33,7 +34,9 @@ function ReviewModal({
   medication,
   isApproving,
   setMedication,
+  patient,
 }: modalProps) {
+  console.log(patient);
   return (
     <Modal
       onClose={toggleModal}
@@ -41,6 +44,9 @@ function ReviewModal({
       show={isModalOpen}
       style={{ background: "#dde1e7" }}
     >
+      <SymptomsText status={patient?.latestRecord?.response.overall_status}>
+        {patient?.latestRecord?.response?.symptoms}
+      </SymptomsText>
       <div>
         <TextArea onChange={(e) => setMedication(e.target.value)} value={medication} placeholder="Medication" />
         <div>
@@ -118,6 +124,45 @@ const labelStyle = {
 const radioStyle = {
   marginRight: "8px",
 };
+
+interface SymptomsProps {
+  status?: string;
+}
+
+const SymptomsText = styled.p<SymptomsProps>`
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #374151;
+  padding: 0.5rem;
+  box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3);
+  border-radius: 0.5rem;
+  margin: 0.5rem 0;
+  white-space: pre-wrap;
+
+  ${({ status }) => {
+    switch (status) {
+      case "Caution":
+        return `
+            background-color: #FFF5D9;
+            // border:3px solid #856404;
+            color: #856404;
+          `;
+      case "Stable":
+        return `
+            background-color: #D1E7DD;
+            color: #0F5132;
+          `;
+      case "High Risk":
+        return `
+            background-color: #F8D7DA;
+            color: #842029;
+            
+          `;
+      default:
+        return "";
+    }
+  }}
+`;
 
 const StyledButton = styled(Button)`
   background: #dde1e7;

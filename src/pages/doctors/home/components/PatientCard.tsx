@@ -11,9 +11,18 @@ interface props {
   setApproved?: (isApproved: boolean) => void;
   setOverallStatus?: (overallStatus: OverallStatus) => void;
   setMedication?: (data: string) => void;
+  setPatientRecord?: (data: Patient) => void;
 }
 
-function PatientCard({ patient, setOverallStatus, setApproved, setMedication, setRecordId, toggleModal }: props) {
+function PatientCard({
+  patient,
+  setPatientRecord,
+  setOverallStatus,
+  setApproved,
+  setMedication,
+  setRecordId,
+  toggleModal,
+}: props) {
   const isApproved = String(patient.latestRecord?.response.doctor_approved).toLowerCase() === "true";
   const createdAt = patient.latestRecord?.createdAt;
   const lastRecordStatus = patient.latestRecord?.response.overall_status;
@@ -23,6 +32,9 @@ function PatientCard({ patient, setOverallStatus, setApproved, setMedication, se
         setRecordId(patient?.latestRecord?._id ?? "");
         if (toggleModal && lastRecordStatus) {
           toggleModal();
+        }
+        if (setPatientRecord) {
+          setPatientRecord(patient);
         }
         if (setApproved) {
           setApproved(isApproved);

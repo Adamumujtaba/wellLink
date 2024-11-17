@@ -1,4 +1,4 @@
-import { useDoctorsApprovalMutation, usePatientsQuery } from "@/pages/patient/SymptomLogginApi";
+import { Patient, useDoctorsApprovalMutation, usePatientsQuery } from "@/pages/patient/SymptomLogginApi";
 import { useUserSlice } from "@/redux/auth/authSlice";
 import { capitalizeFirstLetterOFEachWord } from "@/utils/utils";
 import { User } from "iconsax-react";
@@ -20,6 +20,7 @@ function DoctorsDashboard() {
 
   const [approved, setApproved] = useState<boolean>(false);
   const [medication, setMedication] = useState("");
+  const [patientRecord, setPatientRecord] = useState<Patient | null>(null);
   const [overallStatus, setOverallStatus] = useState<OverallStatus>("Caution");
   const { user } = useUserSlice();
 
@@ -88,6 +89,7 @@ function DoctorsDashboard() {
                 setApproved={setApproved}
                 setMedication={setMedication}
                 setOverallStatus={setOverallStatus}
+                setPatientRecord={setPatientRecord}
               />
             );
           })
@@ -112,6 +114,7 @@ function DoctorsDashboard() {
           setOverallStatus={setOverallStatus}
           doctorsApproval={doctorsApproval}
           isLoading={false}
+          patient={patientRecord}
           handleUpdate={function (): void {
             throw new Error("Function not implemented.");
           }}
