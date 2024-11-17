@@ -19,7 +19,7 @@ function Register() {
   }, [isSuccess, navigate]);
 
   const onSubmit = (data: UserData) => {
-    handleRegister(data);
+    handleRegister({ ...data, email: data.email.toLowerCase() });
   };
 
   return (

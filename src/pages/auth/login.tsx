@@ -52,7 +52,7 @@ function Login() {
   }, [isSuccess, navigate, destinationPath]);
 
   const onSubmit = (data: UserData) => {
-    Login(data);
+    Login({ ...data, email: data.email.toLocaleLowerCase() });
   };
 
   return (
