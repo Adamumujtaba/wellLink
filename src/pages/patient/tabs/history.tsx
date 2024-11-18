@@ -46,7 +46,7 @@ function History({ data }: HistoryProps) {
               }}
             >
               <h3>Record {++index}</h3>
-              <StatusCard status={record.response.doctor_approved} />
+              <StatusCard status={String(record.response.doctor_approved) === "true"} />
             </div>
             <p>Symptoms: {record.response.symptoms}</p>
             <p>Prescribed Medication: {record.response.prescribe_medication}</p>

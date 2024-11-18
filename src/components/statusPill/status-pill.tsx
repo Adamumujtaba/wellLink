@@ -7,7 +7,7 @@ interface StatusConfig {
   dotColor: string;
 }
 
-const getStatusStyles = (status: boolean): StatusConfig => {
+const getStatusStyles = (status: boolean | string): StatusConfig => {
   switch (status) {
     case true:
       return {
@@ -31,7 +31,7 @@ const getStatusStyles = (status: boolean): StatusConfig => {
 };
 
 interface StatusIndicatorProps {
-  status?: boolean;
+  status?: boolean | string;
 }
 
 const StatusCard: React.FC<StatusIndicatorProps> = ({ status }: StatusIndicatorProps) => {
