@@ -24,7 +24,7 @@ export const Layout = () => {
             onClick={() => {
               dispatch(logout());
             }}
-            title="Logout"
+            title={`Logout`}
           />
         )}
       </Nav>

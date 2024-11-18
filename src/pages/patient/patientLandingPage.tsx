@@ -12,16 +12,20 @@ import Dashboard from "./tabs/dashboard";
 import History from "./tabs/history";
 import Skeleton from "react-loading-skeleton";
 import { capitalizeFirstLetterOFEachWord } from "@/utils/utils";
+// import { clearSymptoms } from "@/redux/symptoms/symptomSlice";
+// import { useDispatch } from "react-redux";
 
 function Landing() {
   const { user } = useUserSlice();
   const [formModal, setFormModal] = useState(false);
-  const [handlePostSymptoms, { isLoading, isSuccess }] = usePostSymptomMutation();
+  const [handlePostSymptoms, { isLoading, isSuccess, reset }] = usePostSymptomMutation();
   const { data, isLoading: isLoadingRecord } = useRecordsQuery({ id: user.id, status: "all" });
   const [activeTab, setActiveTab] = useState("dashboard");
+  // const disaptch = useDispatch();
 
   const handleTabSwitch = (val: string) => setActiveTab(val);
   const toggleFormModal = () => {
+    reset();
     setFormModal(!formModal);
   };
 

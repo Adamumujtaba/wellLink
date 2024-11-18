@@ -157,7 +157,14 @@ function SymptomsForm({ handlePostSymptoms, isLoading, isSuccess }: Props) {
               />
             </div>
 
-            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: 10, width: "60%" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                gap: 10,
+                width: "100%",
+              }}
+            >
               <RadioGroup>
                 <RadioLabel>Gender: </RadioLabel>
                 <RadioOption>
@@ -167,6 +174,7 @@ function SymptomsForm({ handlePostSymptoms, isLoading, isSuccess }: Props) {
                   <input type="radio" id="female" {...register("gender")} value="female" />
                   <label htmlFor="female">Female </label>
                 </RadioOption>
+                {errors && <span style={{ color: "red", fontSize: "12px" }}>{errors?.gender?.message}</span>}
               </RadioGroup>
 
               <RadioGroup>
@@ -178,6 +186,7 @@ function SymptomsForm({ handlePostSymptoms, isLoading, isSuccess }: Props) {
                   <input type="radio" id="smoke-no" {...register("smoker")} value="No" />
                   <label htmlFor="smoke-no">No</label>
                 </RadioOption>
+                {errors && <span style={{ color: "red", fontSize: "12px" }}>{errors?.smoker?.message}</span>}
               </RadioGroup>
             </div>
             <div>
@@ -198,6 +207,7 @@ export default SymptomsForm;
 
 const RadioGroup = styled.div`
   margin-bottom: 1rem;
+  min-width: 50%;
 `;
 
 const RadioLabel = styled.label`

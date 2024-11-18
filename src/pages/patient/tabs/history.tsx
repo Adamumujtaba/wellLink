@@ -64,6 +64,7 @@ function History({ data }: HistoryProps) {
                   color: "red",
                 }}
               />
+
               <Button
                 onClick={() => {
                   toggleModal();
