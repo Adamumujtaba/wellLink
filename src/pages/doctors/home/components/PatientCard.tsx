@@ -118,7 +118,7 @@ const Card = styled.div`
   p {
     margin: 0px;
     padding: 0px;
-    font-size: medium;
+    font-size: small;
   }
 
   @media screen and (max-width: 768px) {

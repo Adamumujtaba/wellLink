@@ -138,7 +138,8 @@ const Card = styled.div`
   padding: 1rem;
   border-radius: 5px;
   background: #dde1e7;
-  box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3);
+  border: 1px solid rgba(94, 104, 121, 0.3);
+  /* box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3); */
   .number {
     font-size: x-large;
     font-weight: 600;
@@ -156,7 +157,9 @@ const Grid = styled.div`
 
 export const Input = styled.input`
   background: #dde1e7;
-  box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3);
+  /* box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3); */
+  box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45), inset 5px 5px 9px rgba(94, 104, 121, 0.3);
+
   border: none;
   padding: 10px 20px;
   height: 30px;

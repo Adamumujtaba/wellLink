@@ -43,12 +43,18 @@ function ReviewModal({
       show={isModalOpen}
       style={{ background: "#dde1e7" }}
     >
+      <label style={labelStyle}> Symptopms</label>
       <SymptomsText status={patient?.latestRecord?.response.overall_status}>
         {patient?.latestRecord?.response?.symptoms}
       </SymptomsText>
+
+      <label style={labelStyle}> Medication</label>
+
       <div>
         <TextArea onChange={(e) => setMedication(e.target.value)} value={medication} placeholder="Medication" />
         <div>
+          <label style={labelStyle}> Status</label>
+
           <Select
             style={{ width: "100%" }}
             value={overallStatus}
@@ -60,6 +66,7 @@ function ReviewModal({
             <option value="High Risk">Hig Risk</option>
           </Select>
         </div>
+
         <div
           style={{
             display: "flex",
@@ -133,7 +140,7 @@ const SymptomsText = styled.p<SymptomsProps>`
   line-height: 1.6;
   color: #374151;
   padding: 0.5rem;
-  box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3);
+  /* box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3); */
   border-radius: 0.5rem;
   margin: 0.5rem 0;
   white-space: pre-wrap;
@@ -178,7 +185,9 @@ const StyledButton = styled(Button)`
 
 const TextArea = styled.textarea`
   background: #dde1e7;
-  box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3);
+  /* box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3); */
+  box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45), inset 5px 5px 9px rgba(94, 104, 121, 0.3);
+
   border: none;
   padding: 10px 20px;
   height: 80px;

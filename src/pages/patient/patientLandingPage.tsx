@@ -32,7 +32,9 @@ function Landing() {
   return (
     <div>
       <h2>Welcome {capitalizeFirstLetterOFEachWord(user.fullname)}</h2>
-      <CallToActionButton onClick={toggleFormModal}>Check-in </CallToActionButton>
+
+      {data?.data?.length ? <CallToActionButton onClick={toggleFormModal}>Check-in </CallToActionButton> : null}
+
       <TabContainer>
         <TabButton active={activeTab === "dashboard"} onClick={() => handleTabSwitch("dashboard")}>
           Dashboard
@@ -64,29 +66,28 @@ function Landing() {
           </TabPanel>
         </>
       ) : (
-        <div
-          style={{
-            maxWidth: "500px",
-            width: "90%",
-            margin: "3rem auto",
-            padding: "2rem",
-            background: "#dde1e7",
-            borderRadius: "5px",
-            boxShadow: " rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px ",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <EmptyState>
           <p>
             Welcome to our health assistant app! This app helps you track your symptoms and receive AI-generated health
             insights, including possible medication suggestions. Any suggested medication will be reviewed by our
             doctors, who can update and approve it to ensure safety. Please wait for a doctor’s approval before
             following any medication advice.
-            <br />
-            <br />
           </p>
-        </div>
+          <CallToActionButton
+            style={{
+              width: "90%",
+              borderRadius: "5px",
+              padding: "10px 20px",
+              margin: "20px 0px",
+              textAlign: "center",
+              color: "#fff",
+              background: "#3e98c7",
+            }}
+            onClick={toggleFormModal}
+          >
+            Check-in{" "}
+          </CallToActionButton>
+        </EmptyState>
       )}
 
       <Modal
@@ -121,4 +122,16 @@ const CallToActionButton = styled.button`
     border: none;
     box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45), inset 5px 5px 9px rgba(94, 104, 121, 0.3);
   }
+`;
+
+const EmptyState = styled.div`
+  padding: 20px;
+  width: 90%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: justify;
+  align-items: start;
+  /* box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3); */
 `;

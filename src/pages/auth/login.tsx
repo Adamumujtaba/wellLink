@@ -91,7 +91,10 @@ function Login() {
         />
         <Button title={isLoading ? "Logging..." : "Login"} />
       </form>
-      Don't have an account <Link to="/register">Signup</Link>
+      <p>Forgot Email / Password?</p>
+      <p>
+        Don't have an account <Link to="/register">Signup</Link>
+      </p>
     </div>
   );
 }

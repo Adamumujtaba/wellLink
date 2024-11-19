@@ -25,9 +25,9 @@ function Dashboard() {
         ) : (
           <>
             <StatsCard title="Total" total={stats?.data?.totalRecords} type="total" />
-            <StatsCard title="Stable" total={stats?.data?.statusCounts[1]?.count} type="stable" />
-            <StatsCard title="Caution" total={stats?.data.statusCounts[0]?.count} type="caution" />
-            <StatsCard title="Risk" total={stats?.data?.statusCounts[2]?.count} type="risk" />
+            <StatsCard title="Healthy" total={stats?.data?.statusCounts[1]?.count} type="stable" />
+            <StatsCard title="Need Attention" total={stats?.data.statusCounts[0]?.count} type="caution" />
+            <StatsCard title="Urgent" total={stats?.data?.statusCounts[2]?.count} type="risk" />
           </>
         )}
       </Grid>

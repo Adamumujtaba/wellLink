@@ -57,7 +57,7 @@ const StatusPill = styled.div<StatusPillProps>`
   font-size: 12px;
   background: ${(props) => props.background};
   color: ${(props) => props.color};
-  width: fit-content;
+  width: 80px;
   min-width: 70px;
   justify-content: center;
 

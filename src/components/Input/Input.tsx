@@ -67,7 +67,9 @@ const Container = styled.div`
 
 export const InputStyle = styled.input`
   background: #dde1e7;
-  /* box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45), inset 5px 5px 9px rgba(94, 104, 121, 0.3); */
+
+  box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45), inset 5px 5px 9px rgba(94, 104, 121, 0.3);
+  /* box-shadow: inset gray 0px 0px 60px -12px; */
   border-radius: 3px !important;
   border: none;
   padding: 10px 20px;

@@ -49,7 +49,7 @@ interface CardProps {
 }
 const Card = styled.div<CardProps>`
   /* position: relative; */
-  max-width: 150px;
+  max-width: 170px;
   width: 100%;
   height: 150px;
   background: #dde1e7;
@@ -59,6 +59,7 @@ const Card = styled.div<CardProps>`
   align-items: center;
   justify-content: space-between;
   border-radius: 8px;
+  position: relative;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   color: ${({ status }) =>
     status === "total"
@@ -71,11 +72,15 @@ const Card = styled.div<CardProps>`
       ? "#FF3D00"
       : "#125f3a"};
   .icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    bottom: 20px;
   }
 
   @media (max-width: 600px) {
     max-width: 95%;
-    margin: 0px;
-    padding: 5px;
+    margin: 0px auto;
+    padding: 0px 5px;
   }
 `;

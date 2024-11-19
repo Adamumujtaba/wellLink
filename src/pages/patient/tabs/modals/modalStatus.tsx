@@ -23,7 +23,7 @@ function ModalStatus({
   setFeelings,
 }: modalProps) {
   return (
-    <Modal onClose={toggleModal} title="How Are You Feeling?" show={isModalOpen} style={{ background: "#dde1e7" }}>
+    <Modal onClose={toggleModal} title="Update Your Condition" show={isModalOpen} style={{ background: "#dde1e7" }}>
       <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         <label style={{ display: "flex", alignItems: "center" }}>
           <input
@@ -33,7 +33,7 @@ function ModalStatus({
             checked={feelings === "Stable"}
             onChange={(e) => setFeelings(e.target.value as OverallStatus)}
           />
-          <span style={{ marginLeft: "0.5rem" }}>Stable</span>
+          <span style={{ marginLeft: "0.5rem" }}>Healthy</span>
         </label>
         <label style={{ display: "flex", alignItems: "center" }}>
           <input
@@ -43,7 +43,7 @@ function ModalStatus({
             checked={feelings === "Caution"}
             onChange={(e) => setFeelings(e.target.value as OverallStatus)}
           />
-          <span style={{ marginLeft: "0.5rem" }}>Caution</span>
+          <span style={{ marginLeft: "0.5rem" }}>Needs Attention</span>
         </label>
         <label style={{ display: "flex", alignItems: "center" }}>
           <input
@@ -53,7 +53,7 @@ function ModalStatus({
             checked={feelings === "High Risk"}
             onChange={(e) => setFeelings(e.target.value as OverallStatus)}
           />
-          <span style={{ marginLeft: "0.5rem" }}>High Risk</span>
+          <span style={{ marginLeft: "0.5rem" }}>Urgent</span>
         </label>
       </div>
       <StyledButton title="Update" disabled={isLoading} onClick={() => handleUpdate(recordId)} />

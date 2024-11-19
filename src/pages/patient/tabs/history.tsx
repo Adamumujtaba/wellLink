@@ -118,28 +118,30 @@ const CardHistory = styled.div<CardProps>`
   border-radius: 4px;
   cursor: pointer;
 
-  ${({ status }) => {
-    switch (status) {
-      case "Caution":
-        return `
+  h3 {
+    ${({ status }) => {
+      switch (status) {
+        case "Caution":
+          return `
             // background-color: #FFF5D9;
             // border:3px solid #856404;
             // background: #eeee;
             color: #856404;
           `;
-      case "Stable":
-        return `
+        case "Stable":
+          return `
             // background-color: #D1E7DD;
             color: #0F5132;
           `;
-      case "High Risk":
-        return `
+        case "High Risk":
+          return `
             // background-color: #F8D7DA;
             color: #842029;
             
           `;
-      default:
-        return "";
-    }
-  }}
+        default:
+          return "";
+      }
+    }}
+  }
 `;
