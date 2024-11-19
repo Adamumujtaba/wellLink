@@ -126,7 +126,7 @@ function SymptomsForm({ handlePostSymptoms, isLoading, isSuccess }: Props) {
                 setValue("chronic_conditions", e.target.value);
               }}
               control={control}
-              label={"Chronic Conditions "}
+              label={"Chronic Conditions (Type 'None' if not applicable)"}
               placeholder="Do you have any chronic conditions"
               error={errors.chronic_conditions}
             />

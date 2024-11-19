@@ -6,20 +6,32 @@ import { useEffect, useState } from "react";
 import { OverallStatus } from "@/redux/symptoms/symptomSlice";
 import ModalStatus from "./modals/modalStatus";
 import Button from "@/components/Button/button";
+import DeleteModal from "./modals/deleteModal";
 
 interface HistoryProps {
   data: ResponseResult;
 }
 
+const truncateText = (text: string) => {
+  if (!text) return "";
+  const isMobile = window.matchMedia("(max-width: 767px)").matches;
+  const maxLength = isMobile ? 35 : 45;
+
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength) + "...";
+};
+
 function History({ data }: HistoryProps) {
   const [updateStatus, { isLoading, isSuccess }] = useUpdateStatusMutation();
-  const [deleteRecord, { isLoading: isDeleting }] = useDeleteRecordMutation();
+  const [deleteRecord, { isLoading: isDeleting, isSuccess: isDeleted }] = useDeleteRecordMutation();
   const [feelings, setFeelings] = useState<OverallStatus>("Stable");
   const [recordId, setRecordId] = useState("");
   const [bookSession, setBookSession] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
+  const toggleDeleteModal = () => setIsDeleteModalOpen(!isDeleteModalOpen);
   const handleUpdate = (id: string) => {
     console.log(id);
     updateStatus({
@@ -50,24 +62,43 @@ function History({ data }: HistoryProps) {
               <h3>Record {++index}</h3>
               <StatusCard status={String(record.response.doctor_approved) === "true"} />
             </div>
-            <p>Symptoms: {record.response.symptoms}</p>
-            <p>Prescribed Medication: {record.response.prescribe_medication}</p>
             <p>
-              Status:
+              <strong>Symptoms:</strong>
+              {record.response.symptoms}
+            </p>
+            {/* <p className="medication"> Prescribed Medication: {record.response.prescribe_medication}</p> */}
+            <p className="medication">
+              <strong>Medication:</strong>
+
+              {truncateText(record.response.prescribe_medication)}
+            </p>
+            <p>
+              <strong>Status:</strong>
               {record.response.overall_status === "Caution" && "Needs Attention"}
               {record.response.overall_status === "Stable" && "Healthy"}
               {record.response.overall_status === "High Risk" && "Urgent"}
             </p>
-            <p>Date: {formatDateTime(record.updatedAt)}</p>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <p>
+              <strong>Date:</strong>
+              {formatDateTime(record.updatedAt)}
+            </p>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
               <Button
-                onClick={() => deleteRecord({ id: record._id })}
+                // onClick={() => deleteRecord({ id: record._id })}
+                onClick={() => {
+                  toggleDeleteModal();
+                  setRecordId(record._id);
+                }}
                 title={isDeleting ? "Deleting..." : "Delete"}
                 style={{
                   width: "100px",
                   background: "#dde1e7",
-                  boxShadow: " -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3)",
-
+                  boxShadow: " -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(29, 29, 29, 0.3)",
                   color: "red",
                 }}
               />
@@ -101,6 +132,14 @@ function History({ data }: HistoryProps) {
         setBookSession={setBookSession}
         bookSession={bookSession}
       />
+      <DeleteModal
+        isLoading={isDeleting}
+        deleteRecord={deleteRecord}
+        recordId={recordId}
+        isSuccess={isDeleted}
+        isModalOpen={isDeleteModalOpen}
+        toggleModal={toggleDeleteModal}
+      />
     </div>
   );
 }
@@ -121,11 +160,21 @@ interface CardProps {
 const CardHistory = styled.div<CardProps>`
   background: #dde1e7;
   box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3);
-  width: 300px;
+  max-width: 500px;
   padding: 10px;
   margin: 0px;
   border-radius: 4px;
+  position: relative;
+  text-align: justify;
   cursor: pointer;
+  min-height: 170px;
+  .medication {
+    /* background: red; */
+    /* max-height: 50px; */
+  }
+  strong {
+    padding: 0px 10px 0px 0px;
+  }
 
   h3 {
     ${({ status }) => {
@@ -152,5 +201,8 @@ const CardHistory = styled.div<CardProps>`
           return "";
       }
     }}
+  }
+  @media screen and (max-width: 600px) {
+    height: auto;
   }
 `;
