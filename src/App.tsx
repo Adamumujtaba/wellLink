@@ -8,6 +8,7 @@ import { DoctorsLayout } from "./doctorsLayout";
 import DoctorsDashboard from "./pages/doctors/home/DoctorsDashboard";
 import NotFound from "./NotFound";
 import { RoleBasedRoute } from "./components/route-helper/RoleBasedRoute";
+import AdminDashboard from "./pages/admin/admin";
 
 function App() {
   return (
@@ -34,6 +35,16 @@ function App() {
             element={
               <RoleBasedRoute allowedRoles={["doctor"]}>
                 <DoctorsDashboard />
+              </RoleBasedRoute>
+            }
+          />
+        </Route>
+        <Route path="/admin" element={<DoctorsLayout />}>
+          <Route
+            index
+            element={
+              <RoleBasedRoute allowedRoles={["admin"]}>
+                <AdminDashboard />
               </RoleBasedRoute>
             }
           />

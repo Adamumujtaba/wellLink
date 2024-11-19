@@ -24,8 +24,12 @@ function PatientCard({
   toggleModal,
 }: props) {
   const isApproved = String(patient.latestRecord?.response.doctor_approved).toLowerCase() === "true";
-  const createdAt = patient.latestRecord?.createdAt;
-  const lastRecordStatus = patient.latestRecord?.response.overall_status;
+  const updatedAt = patient.latestRecord?.updatedAt;
+  const lastRecordStatus =
+    (patient.latestRecord?.response.overall_status === "Caution" && "Needs Attention") ||
+    (patient.latestRecord?.response.overall_status === "Stable" && "Healthy") ||
+    (patient.latestRecord?.response.overall_status === "High Risk" && "Urgent");
+
   return (
     <Card
       onClick={() => {
@@ -65,7 +69,7 @@ function PatientCard({
             width: "100%",
           }}
         >
-          <p>{formatDateTime(createdAt ?? "NILL")}</p>
+          <p>Updated At: {formatDateTime(updatedAt ?? "NILL")}</p>
         </div>
       </Info>
     </Card>

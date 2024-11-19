@@ -11,6 +11,8 @@ interface modalProps {
   isLoading: boolean;
   handleUpdate: (recordId: string) => void;
   setFeelings: (feelings: OverallStatus) => void;
+  setBookSession: (feelings: boolean) => void;
+  bookSession: boolean;
 }
 
 function ModalStatus({
@@ -21,6 +23,8 @@ function ModalStatus({
   isLoading,
   handleUpdate,
   setFeelings,
+  setBookSession,
+  bookSession,
 }: modalProps) {
   return (
     <Modal onClose={toggleModal} title="Update Your Condition" show={isModalOpen} style={{ background: "#dde1e7" }}>
@@ -54,6 +58,16 @@ function ModalStatus({
             onChange={(e) => setFeelings(e.target.value as OverallStatus)}
           />
           <span style={{ marginLeft: "0.5rem" }}>Urgent</span>
+        </label>
+        <hr />
+        <label style={{ display: "flex", alignItems: "center" }}>
+          <input
+            type="checkbox"
+            name="status"
+            checked={bookSession}
+            onChange={(e) => setBookSession(e.target.checked)}
+          />
+          <span style={{ marginLeft: "0.5rem" }}>Book a session</span>
         </label>
       </div>
       <StyledButton title="Update" disabled={isLoading} onClick={() => handleUpdate(recordId)} />

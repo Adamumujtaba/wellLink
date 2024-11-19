@@ -1,27 +1,17 @@
-import { Patient, useDoctorsApprovalMutation, usePatientsQuery } from "@/pages/patient/SymptomLogginApi";
 import { useUserSlice } from "@/redux/auth/authSlice";
 import { capitalizeFirstLetterOFEachWord } from "@/utils/utils";
 import { User } from "iconsax-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { useDebounce } from "react-use";
 import styled from "styled-components";
-import PatientCard from "./components/PatientCard";
-import { OverallStatus } from "@/redux/symptoms/symptomSlice";
-import ReviewModal from "./modals/reviewModal";
+import { useUsersQuery } from "../patient/SymptomLogginApi";
 
-function DoctorsDashboard() {
+function AdminDashboard() {
   const [name, setName] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
   const [searchName, setSearchName] = useState("");
-  const [recordId, setRecordId] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-  const [approved, setApproved] = useState<boolean>(false);
-  const [medication, setMedication] = useState("");
-  const [patientRecord, setPatientRecord] = useState<Patient | null>(null);
-  const [overallStatus, setOverallStatus] = useState<OverallStatus>("Caution");
   const { user } = useUserSlice();
 
   useDebounce(
@@ -31,30 +21,18 @@ function DoctorsDashboard() {
     2000,
     [name]
   );
-  const { data, isLoading, refetch } = usePatientsQuery({ search: searchName, status: filterStatus });
-  const [doctorsApproval, { isLoading: isApproving, isSuccess: isApprovedSuccess }] = useDoctorsApprovalMutation();
-  const handleApprovalChange = (value: string) => {
-    setApproved(value === "true");
-  };
-
-  useEffect(() => {
-    if (isApprovedSuccess) {
-      toggleModal();
-      refetch();
-    }
-  }, [isApprovedSuccess]);
+  const { data, isLoading } = useUsersQuery({ name: searchName, status: filterStatus });
 
   return (
     <div>
       <h4 style={{ marginBottom: "1rem" }}>Welcome {capitalizeFirstLetterOFEachWord(user.fullname)} </h4>
-      <h5 style={{ marginBottom: "1rem" }}>{capitalizeFirstLetterOFEachWord("Doctors")} </h5>
-
+      <h5 style={{ marginBottom: "1rem" }}>Super Admin</h5>
       {isLoading ? (
         <Skeleton count={1} baseColor="#cdd6de33" highlightColor="#5a626833" width="500px" height="120px" />
       ) : (
         <Card>
           <User size={40} />
-          <p>Total Patients </p>
+          <p>Total Users </p>
           <p className="number">{data?.data?.length ?? 0}</p>
         </Card>
       )}
@@ -74,12 +52,12 @@ function DoctorsDashboard() {
               <path fill="red" d="M7 10l5 5 5-5z" />
             </svg>
           </option>
-          <option value="Stable">Healthy</option>
-          <option value="Caution">Needs Attention</option>
-          <option value="High Risk">Urgent</option>
+          <option value="doctor">Doctors</option>
+          <option value="patient">Patient</option>
+          <option value="admin">Admin</option>
         </Select>
       </FilterDiv>
-      <Grid>
+      <>
         {isLoading ? (
           [1, 2, 3, 4].map((el) => (
             <Skeleton
@@ -92,52 +70,56 @@ function DoctorsDashboard() {
             />
           ))
         ) : data?.data.length ? (
-          data?.data?.map((patient) => {
-            return (
-              <PatientCard
-                toggleModal={toggleModal}
-                setRecordId={setRecordId}
-                patient={patient}
-                setApproved={setApproved}
-                setMedication={setMedication}
-                setOverallStatus={setOverallStatus}
-                setPatientRecord={setPatientRecord}
-              />
-            );
-          })
+          <Table>
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.data.map((user, index) => (
+                <tr key={user._id}>
+                  <td>{++index}</td>
+                  <td>{capitalizeFirstLetterOFEachWord(user.fullname)}</td>
+                  <td>{user.email}</td>
+                  <td>{capitalizeFirstLetterOFEachWord(user.role)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
         ) : (
-          <>
-            <div style={{ textAlign: "center", padding: "50px", color: "#555" }}>
-              <h2>No data available</h2>
-            </div>
-          </>
+          <div style={{ textAlign: "center", padding: "50px", color: "#555" }}>
+            <h2>No data available</h2>
+          </div>
         )}
-      </Grid>
-      <div>
-        <ReviewModal
-          approved={approved}
-          recordId={recordId}
-          medication={medication}
-          setMedication={setMedication}
-          toggleModal={toggleModal}
-          isModalOpen={isModalOpen}
-          overallStatus={overallStatus}
-          handleApprovalChange={handleApprovalChange}
-          setOverallStatus={setOverallStatus}
-          doctorsApproval={doctorsApproval}
-          isLoading={false}
-          patient={patientRecord}
-          handleUpdate={function (): void {
-            throw new Error("Function not implemented.");
-          }}
-          isApproving={isApproving}
-        />
-      </div>
+      </>
     </div>
   );
 }
 
-export default DoctorsDashboard;
+export default AdminDashboard;
+
+const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #a2a0a03b;
+  border-radius: 18px;
+  thead tr th {
+    background-color: #aeb6b62b;
+    border: 1px solid #ddd;
+    padding: 8px;
+    color: #000;
+    text-align: left;
+  }
+  tr td {
+    border: 1px solid #3096652b;
+    padding: 8px;
+    text-align: left;
+  }
+`;
 
 const FilterDiv = styled.div`
   display: flex;
@@ -157,16 +139,6 @@ const Card = styled.div`
     font-weight: 600;
   }
 `;
-const Grid = styled.div`
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-  justify-content: space-around;
-  width: 100%;
-  padding: 1rem 0px;
-  margin: 0 auto;
-`;
-
 export const Input = styled.input`
   background: #dde1e7;
   /* box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3); */

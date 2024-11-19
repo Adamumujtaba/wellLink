@@ -37,11 +37,11 @@ const symptomApi = api.injectEndpoints({
         }
       },
     }),
-    updateStatus: builder.mutation<any, { overall_status: string; recordId: string }>({
-      query: ({ overall_status, recordId }) => ({
+    updateStatus: builder.mutation<any, { overall_status?: string; recordId: string; isScheduled?: boolean }>({
+      query: ({ overall_status, recordId, isScheduled }) => ({
         url: `/users/records/:${recordId}/status`,
         method: "PATCH",
-        body: { overall_status },
+        body: { overall_status, isScheduled },
       }),
       invalidatesTags: ["Records"],
       async onQueryStarted(_arg, { queryFulfilled }) {
@@ -119,6 +119,13 @@ const symptomApi = api.injectEndpoints({
       }),
       providesTags: ["Records"],
     }),
+    users: builder.query<UsersResponse, { name: string; status: string }>({
+      query: ({ name, status }) => ({
+        url: "/users",
+        method: "GET",
+        params: { name, status },
+      }),
+    }),
   }),
 });
 
@@ -130,11 +137,25 @@ export const {
   useRecordsStatsQuery,
   useDoctorsApprovalMutation,
   useDeleteRecordMutation,
+  useUsersQuery,
 } = symptomApi;
 
 interface PatientsRequest {
   search: string;
   status: string;
+}
+
+interface User {
+  _id: string;
+  email: string;
+  role: string;
+  fullname: string;
+  __v: number;
+}
+
+interface UsersResponse {
+  data: User[];
+  total: number;
 }
 
 export interface DoctorsApprovalRequest {

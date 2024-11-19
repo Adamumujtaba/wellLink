@@ -7,7 +7,11 @@ function CardDetails() {
   return (
     <div>
       <Card>
-        <CardHeader status={overall_status}>{overall_status}</CardHeader>
+        <CardHeader status={overall_status}>
+          {overall_status === "Caution" && "Needs Attention"}
+          {overall_status === "Stable" && "Healthy"}
+          {overall_status === "High Risk" && "Urgent"}
+        </CardHeader>
         <div className="main">
           <p className="title">Recommendation</p>
           {recommendations}

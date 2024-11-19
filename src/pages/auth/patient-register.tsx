@@ -67,7 +67,7 @@ function PatientRegisterForm({ onSubmit, isLoading }: Props) {
             placeholder="Enter your password "
             error={errors.password}
           />
-          <Button title={isLoading ? "Loading..." : "Create"} />
+          <Button disabled={isLoading} title={isLoading ? "Loading..." : "Create"} />
         </form>
       </AuthWarpper>
     </div>

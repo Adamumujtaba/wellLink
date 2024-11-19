@@ -23,6 +23,7 @@ function Header() {
           <StyledButton
             onClick={() => {
               dispatch(logout());
+              navigate("/login");
             }}
             title="Logout"
           />

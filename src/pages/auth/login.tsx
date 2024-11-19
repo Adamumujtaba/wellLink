@@ -42,6 +42,9 @@ function Login() {
     if (isSuccess && userRole === "doctor") {
       return "/dashboard";
     }
+    if (isSuccess && userRole === "admin") {
+      return "/admin";
+    }
     return "/";
   }, [isSuccess, userRole]);
 
@@ -89,7 +92,7 @@ function Login() {
           placeholder="Enter your password address"
           error={errors.password}
         />
-        <Button title={isLoading ? "Logging..." : "Login"} />
+        <Button disabled={isLoading} title={isLoading ? "Logging..." : "Login"} />
       </form>
       <p>Forgot Email / Password?</p>
       <p>

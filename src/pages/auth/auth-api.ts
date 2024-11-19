@@ -50,13 +50,7 @@ const authApi = api.injectEndpoints({
         });
       },
     }),
-    users: builder.query({
-      query: () => ({
-        url: "/users",
-        method: "GET",
-      }),
-    }),
   }),
 });
 
-export const { useLoginMutation, useUsersQuery, useRegisterMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation } = authApi;

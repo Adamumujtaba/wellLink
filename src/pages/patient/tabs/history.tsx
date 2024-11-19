@@ -16,6 +16,7 @@ function History({ data }: HistoryProps) {
   const [deleteRecord, { isLoading: isDeleting }] = useDeleteRecordMutation();
   const [feelings, setFeelings] = useState<OverallStatus>("Stable");
   const [recordId, setRecordId] = useState("");
+  const [bookSession, setBookSession] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
@@ -24,6 +25,7 @@ function History({ data }: HistoryProps) {
     updateStatus({
       recordId,
       overall_status: feelings,
+      isScheduled: bookSession,
     });
   };
 
@@ -50,7 +52,12 @@ function History({ data }: HistoryProps) {
             </div>
             <p>Symptoms: {record.response.symptoms}</p>
             <p>Prescribed Medication: {record.response.prescribe_medication}</p>
-            <p>Status: {record.response.overall_status}</p>
+            <p>
+              Status:
+              {record.response.overall_status === "Caution" && "Needs Attention"}
+              {record.response.overall_status === "Stable" && "Healthy"}
+              {record.response.overall_status === "High Risk" && "Urgent"}
+            </p>
             <p>Date: {formatDateTime(record.updatedAt)}</p>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Button
@@ -91,6 +98,8 @@ function History({ data }: HistoryProps) {
         toggleModal={toggleModal}
         isLoading={isLoading}
         isModalOpen={isModalOpen}
+        setBookSession={setBookSession}
+        bookSession={bookSession}
       />
     </div>
   );
