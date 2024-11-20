@@ -100,7 +100,7 @@ const NotFound = () => {
         <Message>Oops! The page you're looking for doesn't exist or has been moved.</Message>
 
         <ButtonContainer>
-          <BackButton onClick={() => navigate(-1)}>Go Back</BackButton>
+          <BackButton onClick={() => navigate("/login")}>Go Back</BackButton>
 
           <HomeButton onClick={() => navigate("/")}>
             <Home size={16} />

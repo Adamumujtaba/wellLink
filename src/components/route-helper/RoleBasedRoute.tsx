@@ -12,7 +12,7 @@ export const RoleBasedRoute = ({ allowedRoles, children }: { allowedRoles: strin
     }
   }, [auth.user, navigate]);
 
-  if (!auth.success) {
+  if (!auth.success && !auth.token) {
     return <Navigate to="/login" />;
   }
 
